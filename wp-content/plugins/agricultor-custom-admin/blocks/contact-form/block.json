@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "agricultor/contact-form",
+  "title": "Formulario de Contacto",
+  "category": "agricultor",
+  "description": "Formulario de contacto completo con validación automática",
+  "icon": "email",
+  "keywords": ["contacto", "formulario", "email", "mensaje"],
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"]
+  },
+  "example": {
+    "attributes": {}
+  }
+}

@@ -1,0 +1,37 @@
+/* Estilos para bloques Gutenberg de Agricultor */
+
+.wp-block-agricultor-faq {
+    margin: 20px 0;
+}
+
+.wp-block-agricultor-contact-form {
+    margin: 20px 0;
+}
+
+.wp-block-agricultor-contact-info {
+    margin: 20px 0;
+}
+
+.wp-block-agricultor-map {
+    margin: 20px 0;
+}
+
+.wp-block-agricultor-whatsapp {
+    margin: 20px 0;
+}
+
+/* Soporte para alineación */
+.wp-block-agricultor-faq.alignfull,
+.wp-block-agricultor-contact-form.alignfull,
+.wp-block-agricultor-contact-info.alignfull,
+.wp-block-agricultor-map.alignfull {
+    margin-left: calc(-1 * var(--wp-admin-border-width-focus));
+    margin-right: calc(-1 * var(--wp-admin-border-width-focus));
+}
+
+.wp-block-agricultor-faq.alignwide,
+.wp-block-agricultor-contact-form.alignwide,
+.wp-block-agricultor-contact-info.alignwide,
+.wp-block-agricultor-map.alignwide {
+    width: 100%;
+}

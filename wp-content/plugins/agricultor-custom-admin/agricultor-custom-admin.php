@@ -64,6 +64,7 @@ class Agricultor_Custom_Admin {
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-frontend.php';
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-faqs.php';
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-shortcodes.php';
+        require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-gutenberg-blocks.php';
     }
 
     /**
@@ -113,6 +114,9 @@ class Agricultor_Custom_Admin {
 
         // Shortcodes
         Agricultor_Shortcodes::get_instance()->init();
+
+        // Gutenberg Blocks
+        Agricultor_Gutenberg_Blocks::get_instance()->init();
     }
 
     /**
@@ -167,6 +171,14 @@ class Agricultor_Custom_Admin {
             ),
         )) . ';';
         echo '</script>';
+
+        // Registrar categoría personalizada para bloques
+        if (function_exists('register_block_pattern_category')) {
+            register_block_pattern_category(
+                'agricultor',
+                array('label' => __('Agricultor', 'agricultor-custom-admin'))
+            );
+        }
     }
 
     /**

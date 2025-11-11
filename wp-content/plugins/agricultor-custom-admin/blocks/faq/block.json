@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "agricultor/faq",
+  "title": "Preguntas Frecuentes (FAQs)",
+  "category": "agricultor",
+  "description": "Muestra las preguntas frecuentes de tu sitio en formato acordeón",
+  "icon": "editor-help",
+  "keywords": ["faq", "preguntas", "frecuentes", "acordeón"],
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"]
+  },
+  "attributes": {
+    "category": {
+      "type": "string",
+      "default": ""
+    },
+    "limit": {
+      "type": "number",
+      "default": 10
+    },
+    "title": {
+      "type": "string",
+      "default": "Preguntas Frecuentes"
+    }
+  },
+  "example": {
+    "attributes": {
+      "category": "",
+      "limit": 10,
+      "title": "Preguntas Frecuentes"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "agricultor/whatsapp",
+  "title": "Botón Flotante de WhatsApp",
+  "category": "agricultor",
+  "description": "Botón flotante para contacto directo por WhatsApp",
+  "icon": "phone",
+  "keywords": ["whatsapp", "contacto", "botón", "flotante"],
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "position": {
+      "type": "string",
+      "default": "right"
+    },
+    "message": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "example": {
+    "attributes": {
+      "position": "right",
+      "message": ""
+    }
+  }
+}

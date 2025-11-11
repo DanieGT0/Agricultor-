@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "agricultor/map",
+  "title": "Mapa de Ubicación",
+  "category": "agricultor",
+  "description": "Muestra la ubicación de tu negocio en un mapa interactivo",
+  "icon": "location",
+  "keywords": ["mapa", "ubicación", "google maps", "localización"],
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"]
+  },
+  "attributes": {
+    "width": {
+      "type": "string",
+      "default": "100%"
+    },
+    "height": {
+      "type": "string",
+      "default": "400px"
+    },
+    "zoom": {
+      "type": "number",
+      "default": 15
+    }
+  },
+  "example": {
+    "attributes": {
+      "width": "100%",
+      "height": "400px",
+      "zoom": 15
+    }
+  }
+}
