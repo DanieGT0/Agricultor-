@@ -62,6 +62,8 @@ class Agricultor_Custom_Admin {
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-security.php';
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-forms.php';
         require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-frontend.php';
+        require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-faqs.php';
+        require_once AGRICULTOR_PLUGIN_DIR . 'includes/class-shortcodes.php';
     }
 
     /**
@@ -105,6 +107,12 @@ class Agricultor_Custom_Admin {
 
         // Frontend
         Agricultor_Frontend::get_instance()->init();
+
+        // FAQs
+        Agricultor_FAQs::get_instance()->init();
+
+        // Shortcodes
+        Agricultor_Shortcodes::get_instance()->init();
     }
 
     /**
