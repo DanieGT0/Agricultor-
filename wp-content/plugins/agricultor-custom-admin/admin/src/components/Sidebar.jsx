@@ -2,9 +2,11 @@ import React from 'react';
 
 const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'messages', label: 'Messages', icon: '💬' },
     { id: 'contact', label: 'Contact Info', icon: '📞' },
     { id: 'theme', label: 'Customize Theme', icon: '🎨' },
     { id: 'images', label: 'Manage Images', icon: '🖼️' },
+    { id: 'faqs', label: 'FAQs', icon: '❓' },
     { id: 'submissions', label: 'Form Submissions', icon: '📧' },
 ];
 

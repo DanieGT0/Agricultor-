@@ -4,6 +4,8 @@ import ContactForm from './components/ContactForm';
 import ThemeCustomizer from './components/ThemeCustomizer';
 import ImageManager from './components/ImageManager';
 import FormSubmissions from './components/FormSubmissions';
+import FAQManager from './components/FAQManager';
+import Messages from './components/Messages';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 
@@ -47,6 +49,10 @@ export default function App() {
                 return <ImageManager />;
             case 'submissions':
                 return <FormSubmissions />;
+            case 'faqs':
+                return <FAQManager />;
+            case 'messages':
+                return <Messages />;
             default:
                 return <Dashboard />;
         }

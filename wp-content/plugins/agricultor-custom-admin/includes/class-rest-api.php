@@ -120,6 +120,47 @@ class Agricultor_REST_API {
                 'permission_callback' => array($this, 'check_permission'),
             ),
         ));
+
+        // Endpoints de FAQs
+        register_rest_route($this->namespace, '/faqs', array(
+            array(
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_faqs'),
+                'permission_callback' => array($this, 'check_permission'),
+            ),
+            array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => array($this, 'create_faq'),
+                'permission_callback' => array($this, 'check_permission'),
+            ),
+        ));
+
+        register_rest_route($this->namespace, '/faqs/(?P<id>\d+)', array(
+            array(
+                'methods' => WP_REST_Server::EDITABLE,
+                'callback' => array($this, 'update_faq'),
+                'permission_callback' => array($this, 'check_permission'),
+                'args' => array(
+                    'id' => array(
+                        'validate_callback' => function ($param) {
+                            return is_numeric($param);
+                        },
+                    ),
+                ),
+            ),
+            array(
+                'methods' => WP_REST_Server::DELETABLE,
+                'callback' => array($this, 'delete_faq'),
+                'permission_callback' => array($this, 'check_permission'),
+                'args' => array(
+                    'id' => array(
+                        'validate_callback' => function ($param) {
+                            return is_numeric($param);
+                        },
+                    ),
+                ),
+            ),
+        ));
     }
 
     /**
@@ -417,6 +458,152 @@ class Agricultor_REST_API {
     }
 
     /**
+     * Obtener todas las FAQs
+     */
+    public function get_faqs(WP_REST_Request $request) {
+        $category = $request->get_param('category');
+        $limit = absint($request->get_param('limit') ?? 10);
+
+        $args = array(
+            'post_type' => 'faq',
+            'posts_per_page' => $limit,
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+        );
+
+        if (!empty($category)) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'faq_category',
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($category),
+                ),
+            );
+        }
+
+        $faqs = get_posts($args);
+        $data = array();
+
+        foreach ($faqs as $faq) {
+            $data[] = $this->format_faq_response($faq);
+        }
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data' => $data,
+        ));
+    }
+
+    /**
+     * Crear una FAQ
+     */
+    public function create_faq(WP_REST_Request $request) {
+        $params = $request->get_json_params();
+
+        // Validar datos
+        if (empty($params['question'])) {
+            return rest_ensure_response(array(
+                'success' => false,
+                'message' => __('Question is required', 'agricultor-custom-admin'),
+            ));
+        }
+
+        if (empty($params['answer'])) {
+            return rest_ensure_response(array(
+                'success' => false,
+                'message' => __('Answer is required', 'agricultor-custom-admin'),
+            ));
+        }
+
+        // Crear post
+        $post_id = wp_insert_post(array(
+            'post_type' => 'faq',
+            'post_title' => sanitize_text_field($params['question']),
+            'post_content' => wp_kses_post($params['answer']),
+            'post_status' => 'publish',
+            'menu_order' => absint($params['order'] ?? 0),
+        ));
+
+        if (is_wp_error($post_id)) {
+            return rest_ensure_response(array(
+                'success' => false,
+                'message' => __('Error creating FAQ', 'agricultor-custom-admin'),
+            ));
+        }
+
+        // Asignar categoría
+        if (!empty($params['category'])) {
+            wp_set_object_terms($post_id, sanitize_text_field($params['category']), 'faq_category');
+        }
+
+        $faq = get_post($post_id);
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'message' => __('FAQ created successfully', 'agricultor-custom-admin'),
+            'data' => $this->format_faq_response($faq),
+        ));
+    }
+
+    /**
+     * Actualizar una FAQ
+     */
+    public function update_faq(WP_REST_Request $request) {
+        $post_id = absint($request->get_param('id'));
+        $params = $request->get_json_params();
+
+        // Verificar que el post existe
+        if (!get_post($post_id)) {
+            return rest_ensure_response(array(
+                'success' => false,
+                'message' => __('FAQ not found', 'agricultor-custom-admin'),
+            ));
+        }
+
+        // Actualizar post
+        wp_update_post(array(
+            'ID' => $post_id,
+            'post_title' => sanitize_text_field($params['question'] ?? ''),
+            'post_content' => wp_kses_post($params['answer'] ?? ''),
+            'menu_order' => absint($params['order'] ?? 0),
+        ));
+
+        // Actualizar categoría
+        if (!empty($params['category'])) {
+            wp_set_object_terms($post_id, sanitize_text_field($params['category']), 'faq_category');
+        }
+
+        $faq = get_post($post_id);
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'message' => __('FAQ updated successfully', 'agricultor-custom-admin'),
+            'data' => $this->format_faq_response($faq),
+        ));
+    }
+
+    /**
+     * Eliminar una FAQ
+     */
+    public function delete_faq(WP_REST_Request $request) {
+        $post_id = absint($request->get_param('id'));
+
+        if (!get_post($post_id)) {
+            return rest_ensure_response(array(
+                'success' => false,
+                'message' => __('FAQ not found', 'agricultor-custom-admin'),
+            ));
+        }
+
+        wp_delete_post($post_id, true);
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'message' => __('FAQ deleted successfully', 'agricultor-custom-admin'),
+        ));
+    }
+
+    /**
      * Obtener estadísticas del dashboard
      */
     public function get_dashboard_stats(WP_REST_Request $request) {
@@ -508,5 +695,22 @@ Message:
         );
 
         return count(get_posts($args));
+    }
+
+    /**
+     * Formatear respuesta de FAQ
+     */
+    private function format_faq_response($post) {
+        $terms = wp_get_post_terms($post->ID, 'faq_category');
+        $category = !empty($terms) ? $terms[0]->slug : 'general';
+
+        return array(
+            'id' => $post->ID,
+            'question' => $post->post_title,
+            'answer' => wp_kses_post($post->post_content),
+            'category' => $category,
+            'order' => $post->menu_order,
+            'created_at' => $post->post_date,
+        );
     }
 }
