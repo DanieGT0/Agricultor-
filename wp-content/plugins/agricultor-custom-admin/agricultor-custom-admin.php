@@ -118,19 +118,24 @@ class Agricultor_Custom_Admin {
      * Cargar scripts del admin
      */
     public function enqueue_admin_scripts($hook) {
-        // Solo en nuestro dashboard personalizado
-        if (strpos($hook, 'agricultor-dashboard') === false) {
+        // Solo en nuestro dashboard personalizado y sus subpáginas
+        // El hook se pasa como: "toplevel_page_agricultor-dashboard", "admin_page_agricultor-contact", etc.
+        if (strpos($hook, 'agricultor') === false) {
             return;
         }
 
-        // React app
+        // React app - Load as module with defer
         wp_enqueue_script(
             'agricultor-admin-app',
             AGRICULTOR_PLUGIN_URL . 'admin/dist/index.js',
             array(),
             AGRICULTOR_PLUGIN_VERSION,
-            true
+            false // Load in header
         );
+
+        // Add module and defer attributes
+        wp_script_add_data('agricultor-admin-app', 'type', 'module');
+        wp_script_add_data('agricultor-admin-app', 'defer', true);
 
         // Estilos
         wp_enqueue_style(
@@ -140,17 +145,20 @@ class Agricultor_Custom_Admin {
             AGRICULTOR_PLUGIN_VERSION
         );
 
-        // Pasar datos a React
-        wp_localize_script('agricultor-admin-app', 'agricultor', array(
+        // Pasar datos a React como window variable
+        echo '<script>';
+        echo 'window.agricultor = ' . wp_json_encode(array(
             'apiUrl' => rest_url('agricultor/v1'),
             'nonce' => wp_create_nonce('wp_rest'),
             'siteUrl' => site_url(),
             'userId' => get_current_user_id(),
+            'userName' => wp_get_current_user()->display_name,
             'userCan' => array(
                 'manage_options' => current_user_can('manage_options'),
                 'edit_posts' => current_user_can('edit_posts'),
             ),
-        ));
+        )) . ';';
+        echo '</script>';
     }
 
     /**
