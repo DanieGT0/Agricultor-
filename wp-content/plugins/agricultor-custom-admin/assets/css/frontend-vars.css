@@ -1,0 +1,235 @@
+/* Variables CSS para tema dinámico de Agricultor */
+
+:root {
+    --agricultor-primary-color: #2D5016;
+    --agricultor-secondary-color: #7CB342;
+    --agricultor-text-color: #333333;
+    --agricultor-bg-color: #FFFFFF;
+    --agricultor-font-family: 'Inter', 'Segoe UI', sans-serif;
+
+    /* Colores adicionales */
+    --agricultor-accent: #FFB800;
+    --agricultor-danger: #E63946;
+    --agricultor-success: #06D6A0;
+    --agricultor-warning: #F4A261;
+
+    /* Espaciado */
+    --agricultor-spacing-xs: 4px;
+    --agricultor-spacing-sm: 8px;
+    --agricultor-spacing-md: 16px;
+    --agricultor-spacing-lg: 24px;
+    --agricultor-spacing-xl: 32px;
+    --agricultor-spacing-2xl: 48px;
+
+    /* Tamaños de fuente */
+    --agricultor-font-size-xs: 12px;
+    --agricultor-font-size-sm: 14px;
+    --agricultor-font-size-base: 16px;
+    --agricultor-font-size-lg: 18px;
+    --agricultor-font-size-xl: 20px;
+    --agricultor-font-size-2xl: 24px;
+    --agricultor-font-size-3xl: 32px;
+
+    /* Border radius */
+    --agricultor-rounded-sm: 4px;
+    --agricultor-rounded-md: 8px;
+    --agricultor-rounded-lg: 12px;
+    --agricultor-rounded-xl: 16px;
+    --agricultor-rounded-full: 9999px;
+
+    /* Sombras */
+    --agricultor-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --agricultor-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --agricultor-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --agricultor-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos base con variables de tema */
+body.agricultor-theme-active {
+    color: var(--agricultor-text-color);
+    background-color: var(--agricultor-bg-color);
+    font-family: var(--agricultor-font-family);
+}
+
+/* Utilidades de color para el tema */
+.text-primary { color: var(--agricultor-primary-color); }
+.text-secondary { color: var(--agricultor-secondary-color); }
+.text-accent { color: var(--agricultor-accent); }
+
+.bg-primary { background-color: var(--agricultor-primary-color); }
+.bg-secondary { background-color: var(--agricultor-secondary-color); }
+.bg-accent { background-color: var(--agricultor-accent); }
+
+.border-primary { border-color: var(--agricultor-primary-color); }
+.border-secondary { border-color: var(--agricultor-secondary-color); }
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: var(--agricultor-spacing-sm) var(--agricultor-spacing-md);
+    border-radius: var(--agricultor-rounded-md);
+    font-size: var(--agricultor-font-size-base);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--agricultor-font-family);
+}
+
+.btn-primary {
+    background-color: var(--agricultor-primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--agricultor-secondary-color);
+    box-shadow: var(--agricultor-shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--agricultor-secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--agricultor-primary-color);
+    box-shadow: var(--agricultor-shadow-md);
+}
+
+.btn-accent {
+    background-color: var(--agricultor-accent);
+    color: var(--agricultor-primary-color);
+}
+
+.btn-accent:hover {
+    box-shadow: var(--agricultor-shadow-md);
+}
+
+/* Enlaces */
+a {
+    color: var(--agricultor-primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--agricultor-secondary-color);
+}
+
+/* Encabezados */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--agricultor-primary-color);
+    font-family: var(--agricultor-font-family);
+}
+
+/* Formularios */
+input[type="text"],
+input[type="email"],
+input[type="phone"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: var(--agricultor-spacing-sm);
+    border: 1px solid #E0E0E0;
+    border-radius: var(--agricultor-rounded-md);
+    font-family: var(--agricultor-font-family);
+    font-size: var(--agricultor-font-size-base);
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="phone"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--agricultor-primary-color);
+    box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+}
+
+/* Formulario de contacto */
+.agricultor-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--agricultor-spacing-md);
+}
+
+.agricultor-contact-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--agricultor-spacing-sm);
+}
+
+.agricultor-contact-form label {
+    font-weight: 600;
+    color: var(--agricultor-primary-color);
+}
+
+.agricultor-contact-form .form-status {
+    padding: var(--agricultor-spacing-md);
+    border-radius: var(--agricultor-rounded-md);
+    margin-top: var(--agricultor-spacing-md);
+}
+
+.agricultor-contact-form .form-status.success {
+    background-color: #E8F5E9;
+    color: var(--agricultor-success);
+    border: 1px solid var(--agricultor-success);
+}
+
+.agricultor-contact-form .form-status.error {
+    background-color: #FFEBEE;
+    color: var(--agricultor-danger);
+    border: 1px solid var(--agricultor-danger);
+}
+
+/* Tarjetas */
+.agricultor-card {
+    background: white;
+    border-radius: var(--agricultor-rounded-lg);
+    padding: var(--agricultor-spacing-lg);
+    box-shadow: var(--agricultor-shadow-md);
+    transition: box-shadow 0.3s ease;
+}
+
+.agricultor-card:hover {
+    box-shadow: var(--agricultor-shadow-lg);
+}
+
+/* Hero section */
+.agricultor-hero {
+    background-color: var(--agricultor-primary-color);
+    color: white;
+    padding: var(--agricultor-spacing-2xl) var(--agricultor-spacing-lg);
+    border-radius: var(--agricultor-rounded-lg);
+}
+
+/* Grid y layout */
+.agricultor-grid {
+    display: grid;
+    gap: var(--agricultor-spacing-lg);
+}
+
+.agricultor-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.agricultor-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    :root {
+        --agricultor-spacing-lg: 16px;
+        --agricultor-spacing-xl: 24px;
+        --agricultor-spacing-2xl: 32px;
+    }
+
+    .agricultor-hero {
+        padding: var(--agricultor-spacing-lg);
+    }
+}

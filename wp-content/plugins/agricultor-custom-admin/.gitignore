@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+admin/dist/
+admin/build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+.thumbsdb
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Package lock files (optional - uncomment if you want to commit these)
+# package-lock.json
+# yarn.lock
+
+# Temporary files
+*.tmp
+*.temp
